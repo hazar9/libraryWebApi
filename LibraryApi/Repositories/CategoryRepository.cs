@@ -17,5 +17,12 @@ namespace LibraryApi.Repositories
                 .Include(c => c.Books)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
+        //düzeltme 
+        public async Task<IEnumerable<Category>> GetAllWithBooksAsync()
+        {
+            return await _context.Categories
+                .Include(c => c.Books)
+                .ToListAsync();
+        }
     }
 }

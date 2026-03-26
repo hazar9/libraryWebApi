@@ -19,13 +19,15 @@ namespace LibraryApi.Repositories
         {
             var query = _context.Books.Include(b => b.Category).AsQueryable();
 
-            // 1. Filtreleme (Başlık veya Yazar adına göre)
+            // filtre - ToLower ekledim
             if (!string.IsNullOrWhiteSpace(filterQuery))
             {
-                query = query.Where(x => x.Title.Contains(filterQuery) || x.Author.Contains(filterQuery));
+                var search = filterQuery.ToLower();
+                query = query.Where(x => x.Title.ToLower().Contains(search) ||
+                                       x.Author.ToLower().Contains(search));
             }
 
-            // 2. Sıralama ("title" veya "date" parametresine göre)
+            // sıralama - sadece 'title' ve 'date' parametresi
             if (!string.IsNullOrWhiteSpace(sortBy))
             {
                 if (sortBy.Equals("title", StringComparison.OrdinalIgnoreCase))
@@ -34,7 +36,7 @@ namespace LibraryApi.Repositories
                     query = query.OrderByDescending(x => x.PublishDate);
             }
 
-            // 3. Sayfalama (Skip ve Take ile)
+            // pagecount ve pagesize
             var skipResults = (pageNumber - 1) * pageSize;
             return await query.Skip(skipResults).Take(pageSize).ToListAsync();
         }

@@ -11,8 +11,8 @@ namespace LibraryApi.Services
         {
             _categoryRepository = categoryRepository;
         }
-
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync() => await _categoryRepository.GetAllAsync();
+        //düzeltme 
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync() => await _categoryRepository.GetAllWithBooksAsync();
 
         public async Task<Category?> GetCategoryByIdAsync(int id) => await _categoryRepository.GetByIdAsync(id);
 

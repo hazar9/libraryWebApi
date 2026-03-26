@@ -6,5 +6,9 @@ namespace LibraryApi.Repositories
     public interface ICategoryRepository : IRepository<Category>
     {
         Task<Category?> GetByIdWithBooksAsync(int id);
+        //düzeltme 
+        Task<IEnumerable<Category>> GetAllWithBooksAsync();
+
     }
+
 }

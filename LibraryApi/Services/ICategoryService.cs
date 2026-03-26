@@ -9,6 +9,7 @@ namespace LibraryApi.Services
         Task<Category?> GetCategoryWithBooksAsync(int id);
         Task<Category> AddCategoryAsync(Category category);
         Task UpdateCategoryAsync(Category category);
+
         Task DeleteCategoryAsync(int id);
     }
 }
