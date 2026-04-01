@@ -1,11 +1,13 @@
 ﻿using LibraryApi.Models;
 using LibraryApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace LibraryApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableRateLimiting("BasicRateLimit")] // Kuralı bu Controller'a uyguladık
     public class BookController : ControllerBase
     {
         private readonly IBookService _bookService;
@@ -15,7 +17,6 @@ namespace LibraryApi.Controllers
             _bookService = bookService;
         }
 
-        // GET metodunu güncelledik (Pagination, Filter, Sort eklendi)
         [HttpGet]
         public async Task<IActionResult> GetAll(
             [FromQuery] string? filter,

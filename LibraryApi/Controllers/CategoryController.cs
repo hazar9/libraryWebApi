@@ -1,11 +1,13 @@
 ﻿using LibraryApi.Models;
 using LibraryApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace LibraryApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableRateLimiting("BasicRateLimit")] // Kuralı bu Controller'a uyguladık
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -25,7 +27,6 @@ namespace LibraryApi.Controllers
             return category == null ? NotFound() : Ok(category);
         }
 
-        // Ekstra: Kategoriye ait kitapları listeleyen özel endpoint
         [HttpGet("{id}/books")]
         public async Task<IActionResult> GetWithBooks(int id)
         {
